@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    
+    <%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +44,7 @@
 
   
   
-  
+  <%-- 
   <h3 style="color:blue">this is the area of admin to approve</h3>
 <form:form modelAttribute="user" action="approve">
 vendor email:
@@ -53,8 +55,8 @@ vendor email:
 
 					<td>
 						<form:radiobuttons items="${getRadios2}" path="userType" />
-						<%-- <form:radiobutton path="userType" value="vendor" />Vendor
-						<form:radiobutton path="userType" value="customer" />Customer --%>
+						<form:radiobutton path="userType" value="vendor" />Vendor
+						<form:radiobutton path="userType" value="customer" />Customer
 					</td>
 					<td><form:errors path="userType" style="color:red" /></td>
 					</tr>
@@ -64,15 +66,19 @@ vendor email:
 					
 					
 					<input type="submit" value="submit"/><br><br>
-					</form:form>
+					</form:form> --%>
 					
 			<h3 style="color:red">${error}</h1>		
 			
 			
 			
 			<form action="userSignoff" method="post">
-<input type="submit" class="button button1" value="back to home page">
+<input type="submit" class="button button1" style="text-align:center" value="back to home page">
 
 </form>
+
+
+
+
 </body>
 </html>

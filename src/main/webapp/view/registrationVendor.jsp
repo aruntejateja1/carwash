@@ -9,9 +9,30 @@
 <title>Insert title here</title>
 <script src="view/validation.js"></script>
 
+
+
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color:red;} 
+
+</style>
+
+
+
 </head>
 <body>
-
+	<h5 style="color:red">${error}</h5>
    
 welcome to registration page
 	<form:form action="registration4" method="post" modelAttribute="user" name="registration">
@@ -20,10 +41,10 @@ welcome to registration page
 			<legend style="color:blue">Vendor Registration</legend>
 			<table>
 			
-		Vendor id:<form:input id="demo" type="text" value="<%= ++count %>"  path="vid" /><br>
+		Vendor id:<form:input id="demo" type="text" value="<%= ++count %>"  path="vid" onfocus="myfunction120()" readonly="on"/>
 				<tr>
 					<td><form:label path="firstName">First Name</form:label></td>
-					<td><span><form:input path="firstName" placeholder="enter your first name" id="fname" onblur="myfunction()" onfocus="myfunction10()"/></span>
+					<td><span><form:input path="firstName" placeholder="enter your first name" id="fname" onblur="myfunction()" onfocus="myfunction10()" autofocus="on"/></span>
 				<h5 id="vname" style="display:inline;color:red"></h5>
 					</td>
 					<td><form:errors path="firstName" style="color:red" />
@@ -54,6 +75,7 @@ welcome to registration page
 				<tr>
 					<td><form:label path="email">E-mail</form:label></td>
 					<td><form:input type="email" path="email" placeholder="enter your email id" id="email"  onblur="vemail()" onfocus="myfunction14()"/>
+				
 					<h5 id="vemail" style="display:inline;color:red"></h5>
 					
 					</td>
@@ -94,6 +116,14 @@ welcome to registration page
             seq = seq +1;
             number = '00'.substr(String(seq).length) + seq
             document.getElementById("demo").value = number;
+        }
+        
+        
+        
+        function myfunction120(){
+        alert("you cannot change the vendor Id");
+  
+        
         }
     </script>
 

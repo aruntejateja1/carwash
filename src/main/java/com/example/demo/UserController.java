@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,40 +147,15 @@ public String registerUser(@Valid @ModelAttribute User user,BindingResult result
 		return "registration";
 	}
 	
-	/*
-	 * if(result.hasErrors()) { return "registration";
-	 * 
-	 * }else { if(user.getUserType().equals("Customer")) {
-	 */
+	try {
 			jdbcTemplate.update("insert into usertable values(?,?,?,?,?)",user.getFirstName(),user.getLastName(),user.getContactNumber(),user.getEmail(),user.getPassword());
 		     
 			return "aftersubmit";
-			/*
-			 * }
-			 * 
-			 * 
-			 * else if(user.getUserType().equals("admin")) {
-			 * jdbcTemplate.update("insert into admin values(?,?,?,?,?)",user.getFirstName()
-			 * ,user.getLastName(),user.getContactNumber(),user.getEmail(),user.getPassword(
-			 * ));
-			 * 
-			 * return "aftersubmit"; }
-			 * 
-			 * 
-			 * else if (user.getUserType().equals("Vendor")) { jdbcTemplate.
-			 * update("insert into vendor(first_name,last_name,contact_number,Email,Password) values(?,?,?,?,?)"
-			 * ,user.getFirstName(),user.getLastName(),user.getContactNumber(),user.getEmail
-			 * (),user.getPassword());
-			 * 
-			 * 
-			 * model.addAttribute("fname",user.getFirstName()); return "vendorApprove"; }
-			 * 
-			 * 
-			 * 
-			 * else { return "registration"; }}
-			 */
+	}catch(Exception e) {
+		model.addAttribute("error","email already exists" );
 		
-		
+		return "registration";
+	}
 		
 	
 	
@@ -192,9 +168,16 @@ public String registerAdmin(@Valid @ModelAttribute User user,BindingResult resul
 if(result.hasErrors()) {
 	return "registrationAdmin";
 }
+
+
+try {
 	jdbcTemplate.update("insert into admin values(?,?,?,?,?)",user.getFirstName(),user.getLastName(),user.getContactNumber(),user.getEmail(),user.getPassword());
      
 	return "aftersubmit";
+}catch(Exception e) {
+	model.addAttribute("error","this email id already exists");
+	return "registrationAdmin";
+}
 }
 
 
@@ -204,11 +187,16 @@ public String registerVendor(@Valid @ModelAttribute User user, BindingResult res
 	  if(result.hasErrors()) {
 		  return "registrationVendor"; 
 	  }
-	  
+	  try {
 		jdbcTemplate.update("insert into vendor(vid,first_name,last_name,contact_number,Email,Password) values(?,?,?,?,?,?)",user.getVid(),user.getFirstName(), user.getLastName(), user.getContactNumber(), user.getEmail(), user.getPassword());
 		System.out.println(user.getVid());
 		model.addAttribute("fname", user.getFirstName());
 		return "vendorApprove";
+	  }catch(Exception e) {
+		  model.addAttribute("error","this email id already exists");
+		  
+		  return "registrationVendor";
+	  }
 	}
 	  
 	  
@@ -302,7 +290,7 @@ public String vendorLogin2() {
 
 @GetMapping("vLogin")
 public String vendorLogin3(String uEmail,String uPassword,Model model){ 
-	  
+	try {
 String password=jdbcTemplate.query("select password from vendor where Email=?", new ResultSetExtractor<String>() {
         @Override
         public String extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -311,6 +299,7 @@ String password=jdbcTemplate.query("select password from vendor where Email=?", 
             }
            
        }, uEmail);
+	
 
 
 
@@ -388,6 +377,11 @@ String contactNumber=jdbcTemplate.query("select contact_number from vendor where
 	  model.addAttribute("error","email or password is incorrect");
 return "vendorLogin";
   }
+  
+	}catch(Exception e){
+		model.addAttribute("error", "enter valid email");
+		return "vendorLogin";
+	}
 }
 
 
@@ -532,42 +526,56 @@ public String pending() {
 	 * }, "f"); System.out.println(lastName);
 	 */
 	
+	/*
+	 * String query="select * from vendor where status='f'"; try {
+	 * Class.forName("com.mysql.cj.jdbc.Driver");
+	 * 
+	 * String url="jdbc:mysql://localhost:3306/cts"; String uname="root"; String
+	 * pass="Arunkohli@22"; Connection
+	 * con=DriverManager.getConnection(url,uname,pass); Statement
+	 * st=con.createStatement(); ResultSet rs=st.executeQuery(query); List<String>
+	 * list = null;
+	 * 
+	 * while(rs.next()) { System.out.println(rs.getString("email"));
+	 * 
+	 * //list.add(rs.getString("email")); //System.out.println(list); } //String
+	 * userData=rs.getString("email");
+	 * 
+	 * 
+	 * //st.close(); //con.close(); } catch (ClassNotFoundException e) { // TODO
+	 * Auto-generated catch block e.printStackTrace(); } catch (SQLException e) { //
+	 * TODO Auto-generated catch block e.printStackTrace();
+	 * //System.out.println("error found"); }
+	 */
 	
-	String query="select * from vendor where status='f'";
-	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
-		String url="jdbc:mysql://localhost:3306/cts";
-		String uname="root";
-		String pass="Arunkohli@22";
-		Connection con=DriverManager.getConnection(url,uname,pass);
-		Statement st=con.createStatement();
-		ResultSet rs=st.executeQuery(query);
-		 List<String> list = null;
-		 
-		while(rs.next()) {
-			System.out.println(rs.getString("email"));
-			
-			//list.add(rs.getString("email"));
-			//System.out.println(list);
-		}
-		//String userData=rs.getString("email");
-	
-		
-		//st.close();
-		//con.close();
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-		//System.out.println("error found");
-	}
-	
-	
-	return "aftersubmit";
+	return "adminApprove";
 }	
+
+
+
+
+@GetMapping("update")
+public String adminApprove10(String vid) {
+	
+	
+	jdbcTemplate.update("update vendor set status=? where vid=?","t",vid);
+	System.out.println(vid);
+	return "aftersubmit";
+	
+}
+
+
+@GetMapping("delete")
+public String adminApprove11(String vid) {
+	
+	
+	jdbcTemplate.update("update vendor set status=? where vid=?","d",vid);
+	System.out.println(vid);
+	return "aftersubmit";
+	
+}
+
+
 
 }
 

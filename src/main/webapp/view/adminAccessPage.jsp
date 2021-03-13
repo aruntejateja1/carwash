@@ -43,16 +43,16 @@ body {
 
 <h1 style="color:blue">Welcome Admin</h1>
 
-<%-- <form action="action1" >
+ <form action="action1" >
 
-<input type="submit" value="pending approvals"/>
-</form> --%>
+<input type="submit"  class="button button1" value="pending approvals"/>
+</form> 
 
 
 
 
 <form action="vendorSignoff" method="post">
-<input type="submit" class="button button1" value="signoff" >
+<input type="submit" class="button button1" style="text-align:right" value="signoff" >
 
 </form>
 

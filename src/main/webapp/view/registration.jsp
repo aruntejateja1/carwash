@@ -45,6 +45,8 @@
 <script src="view/validation.js"></script>
 </head>
 <body>
+
+<h5 style="color:red">${error}</h5>
 	welcome to registration page
 	<form:form action="registration2" method="post" modelAttribute="user" name="registration">
 		<fieldset>
@@ -119,7 +121,7 @@
 	
 	
 	
-    <input id="demo" type="text" onblur="myFunction()">
+    
     <script>
         var seq = 0;
        

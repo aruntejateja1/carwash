@@ -9,9 +9,31 @@
 <title>Insert title here</title>
 <script src="view/validation.js"></script>
 
+
+<style>
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color:red;} 
+
+</style>
+
+
+
+
 </head>
 <body>
 
+<h5 style="color:red">${error}</h5>
 
 welcome to registration page
 	<form:form action="registration3" method="post" modelAttribute="user" name="registration">
