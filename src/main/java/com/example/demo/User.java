@@ -7,23 +7,23 @@ import javax.validation.constraints.Pattern;
 public class User {
 	
 	@NotBlank(message="Name is mandatory")
-	@Pattern(regexp="[a-z A-z]{4,50}",message="must be 4 to 50 characters")
+	@Pattern(regexp="[a-z A-z]{4,50}",message="First Name must be 4 to 50 characters")
 private String firstName;
 
 	@NotBlank(message="Name is mandatory")
-	@Pattern(regexp="[a-z A-z]{4,50}",message="must be 4 to 50 characters")
+	@Pattern(regexp="[a-z A-z]{4,50}",message="Last Name must be 4 to 50 characters")
 private String lastName;
 
 	@NotBlank(message="Number is mandatory")
-	@Pattern(regexp="[0-9]{10}",message="must be 10 numbers")
+	@Pattern(regexp="[0-9]{10}",message="Contact Number must be 10 numbers")
 private String contactNumber;
 
-	@NotBlank(message="email is mandatory")
-	@Pattern(regexp="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message="must be in format characters@characters.domain")
+	@NotBlank(message="Email is mandatory")
+	@Pattern(regexp="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}$",message="Email must be in format characters@characters.domain")
 private String email;
 
-	@NotBlank(message="password is mandatory")
-	@Pattern(regexp="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,}",message="must contain more than 6 letters with atleast one number,one lowercase and one uppercase and one special character")
+	@NotBlank(message="Password is mandatory")
+	@Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%*^]).{6,}",message="Password must contain more than 6 letters with atleast one number,one lowercase and one uppercase and one special character")
 private String password;
 	
 	//@NotBlank(message="userType is mandatory")

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 
 
 
-<title>Vendor Login</title>
+<title>Vendor Approve Page</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -62,29 +63,24 @@ li a:hover {
 	visibility: hidden;
 }
 
-#form_section {
+#approvalTable {
+	width: 70%;
 	background-color: white;
-	width: 40%;
+	border-width: medium;
+	border-style: solid;
+	border-color: coral;
 	margin: auto;
-	margin-top: 50px;
-	padding: 60px;
-	padding-bottom: 60px;
+	margin-top: 40px;
+	padding: 10px;
 	border-radius: 20px;
-	margin-bottom: 60px;
-}
-
-#form_section h2 {
-	text-align: center;
-	color: #0d6efd;
-	margin: 0;
-	margin-bottom: 20px;
 }
 </style>
 
 
 
-</head>
 
+</head>
+<body >
 <h1>On Demand Car Wash</h1>
 	<header id="nav-section">
 		<ul>
@@ -92,31 +88,84 @@ li a:hover {
 			<li><a href="/index">Home</a></li>
 			<li><a href="vendorLogin">Vendor Login</a></li>
 			<li><a href="userLogin2">Customer Login</a></li>
-			<li style="float: right; padding-right: 50px;"><a
-				href="adminLogin">Admin Login</a></li>
+			<li style="float: right; padding-right: 50px;"><a href="/index">Sign
+					Out</a></li>
 		</ul>
 	</header>
 
-	<div id="form_section">
-		<h2>Vendor Login</h2>
-		<h4 style="color: red">${error}</h4>
-		<form action="vLogin" method="get">
 
-			<div class="form-group">
-				<label>Email</label> <input type="text"
-					placeholder="Enter your Email address" name="uEmail"
-					class="form-control" required="required" />
-			</div>
-			<div class="form-group">
-				<label>Password</label> <input type="password"
-					placeholder="Enter your password" name="uPassword"
-					class="form-control" required="required" />
-			</div>
-			<div style="margin-top: 10px;">
-				<input type="submit" value="Login" class="btn btn-primary"><br>
-			</div>
-		</form>
-	</div>
+
+<form method="get">
+
+	<div id="approvalTable">
+		<table class="table table-hover">
+			<tr>
+				<td scope="col">washing service centerName</td>
+				<td scope="col">user Name</td>
+				<td scope="col">Time</td>
+				<td scope="col">slot</td>
+			
+				<td colspan="2" align="center" scope="col">ACTION</td>
+			</tr>
+
+<%
+try
+{
+Class.forName("com.mysql.jdbc.Driver");
+String url="jdbc:mysql://localhost/cts";
+String username="root";
+String password="Arunkohli@22";
+String query="select * from booking where status=? and vid=?";
+ Object name=request.getAttribute("vid");
+Connection conn=DriverManager.getConnection(url,username,password);
+PreparedStatement pstmt=conn.prepareStatement(query);
+pstmt.setString(1,"f");
+pstmt.setObject(2,name);
+ResultSet rs=pstmt.executeQuery();
+while(rs.next())
+{
+
+%>
+    <tr>
+    <td><%=rs.getString("wcname") %></td>
+     <td><%=rs.getString("uName") %></td>
+    <td><%=rs.getString("date") %></td>
+    <td><%=rs.getString("time") %></td>
+    
+    <td><a href="update1?wcname1=<%=rs.getString("wcname") %>" >Accept</a></td>
+    <td><a href="delete1?wcname1=<%=rs.getString("wcname") %>">Reject</a></td>
+    
+    
+    
+   
+    
+    </tr>
+        <%
+
+}
+%>
+    </table>
+    <%
+    rs.close();
+    conn.close();
+    }
+    catch(Exception e)
+    {
+        e.printStackTrace();
+        }
+
+
+
+
+
+
+%>
+</div>
+</form>
+
+
+
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
 		integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
@@ -125,5 +174,6 @@ li a:hover {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
 		integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
 		crossorigin="anonymous"></script>
+
 </body>
 </html>

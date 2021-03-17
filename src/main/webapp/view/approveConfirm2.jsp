@@ -78,6 +78,6 @@ h2 {
 				href="adminLogin">Admin Login</a></li>
 		</ul>
 	</header>
-<h2>Your Details Are Submitted Successfully!!!</h2>
+<h2> ${error}</h2>
 </body>
 </html>

@@ -78,6 +78,6 @@ h2 {
 				href="adminLogin">Admin Login</a></li>
 		</ul>
 	</header>
-<h2>Your Details Are Submitted Successfully!!!</h2>
+<h2>Payment Done.Your Order Is Booked Succesfully. </h2>
 </body>
 </html>

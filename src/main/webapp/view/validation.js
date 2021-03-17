@@ -149,7 +149,7 @@ var error=document.getElementById("vemail");
 
 if(name.value.length==0){
 			alert("email cannot be null");
-				error.innerHTML="invalid mail format";
+				error.innerHTML="Invalid Email format";
 					name.style.background="red";
 			
 		}
@@ -161,7 +161,7 @@ if(name.value.length==0){
     }
     else { 
 	
-	document.getElementById("vemail").innerHTML =" Invalid Email format";
+	document.getElementById("vemail").innerHTML =" Invalid Email Format";
 }
 }
 
